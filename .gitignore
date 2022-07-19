@@ -1,0 +1,11 @@
+app/public/wp-includes/
+app/public/wp-admin/network/update-core.php
+app/public/wp-admin/
+app/public/license.txt
+app/public/readme.html
+app/public/.htaccess
+conf/
+app/sql/
+logs/nginx/error.log
+logs/php/error.log
+app/public/xmlrpc.php
