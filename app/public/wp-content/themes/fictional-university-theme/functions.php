@@ -13,6 +13,9 @@
     add_action('wp_enqueue_scripts', 'university_files');  // Kallar på funktionen university_files som laddar in alla javascript och .css filer
 
     function university_features() {  // En funktion för att visa titteln på webläsar-fliken
+        // register_nav_menu('headerMenuLocation', 'Header Menu Location');  // Gör en meny synlig i wordpress dashbar under fliken appearance
+        // register_nav_menu('footerLocationOne', 'Footer Location One');
+        // register_nav_menu('footerLocationTwo', 'Footer Location Two');
         add_theme_support('title-tag');
     }
 
