@@ -21,7 +21,27 @@
 
     add_action('after_setup_theme', 'university_features');  // Anropar funktionen university_features
 
+    function university_adjust_queries($query) {
+        if (!is_admin() AND is_post_type_archive('event') AND $query -> is_main_query()) {
+            // skapar en variabel som håller koll på DAGENS datum
+            $today = date('Ymd');
+            // meta_key och orderby sorterar alla events efter datum det snaraste eventet visas överst.
+            $query -> set('meta_key', 'event_date');
+            $query -> set('orderby', 'meta_value_num');
+            $query -> set('order', 'ASC');
+            // meta_ query sedr till att filtrera bort alla events som har gamla datum.
+            $query -> set('meta_query', array(
+                array(
+                  'key' => 'event_date',
+                  'compare' => '>=',
+                  'value' => $today,
+                  'type' => 'numeric'
+                )
+            ));
+        }
+    }
 
+    add_action('pre_get_posts', 'university_adjust_queries')
 
 ?>
 
