@@ -1,5 +1,6 @@
 <?php
-
+    // A function for making a page banner, so we don´t need to write this code on every page.
+    // We just need to call the pageBanner function.
     function pageBanner ($args = NULL) {
         // php logic will live here
         if (!$args['title']) {
@@ -11,7 +12,7 @@
         }
 
         if (!$args['photo']) {
-            if (get_field('page_banner_background_image')) {
+            if (get_field('page_banner_background_image') AND !is_archive() AND !is_home()) {
                 $args['photo'] = get_field('page_banner_background_image') ['sizes'] ['pageBanner'];
             }
             else {
