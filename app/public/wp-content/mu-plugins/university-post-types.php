@@ -65,6 +65,29 @@
             ),
             'menu_icon' => 'dashicons-welcome-learn-more'  // Ändrar ikonen till en egen unik som jag själv väljer genom att googla på wordpress dashicons.
         ));
+
+        // Campus Post Type
+
+        register_post_type('campus', array(
+            'show_in_rest' => true,
+            'supports' => array(
+                'title',
+                'editor',
+                'excerpt',
+            ),
+            'rewrite' => array('slug' => 'campuses'),
+            'has_archive' => true,
+            'public' => true,       // Detta gör den synlig.
+            'show_in_rest' => true,
+            'labels' => array(
+                'name' => 'Campuses',  // Byter namn från Posts som är default namnet till Events.
+                'add_new_item' => 'Add New Campus',  // Ändrar rubriken i wordpress dashboard från Add New Post till Add New Event.
+                'edit_item' => 'Edit Campus',  // Ändrar rubriken i wordpress dashboard från Edit Post till Edit Event.
+                'all_items' => 'All Campuses',  // Ändrar rubriken i wordpress dashboard menyn från Events till All Events.
+                'singular_name' => 'Campus'
+            ),
+            'menu_icon' => 'dashicons-location-alt'  // Ändrar ikonen till en egen unik som jag själv väljer genom att googla på wordpress dashicons.
+        ));
     }
 
     add_action('init', 'University_post_types');
