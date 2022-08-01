@@ -100,6 +100,24 @@
           // ------- Slut på Events metoden ---------
         }
 
+        // -------  Tar fram related campus --------------
+
+        wp_reset_postdata();// Utan denna rad syns inte eventsen på sidan. Nollställer wordpress.
+
+        $relatedCampuses = get_field('related_campus');
+
+        if ($relatedCampuses) {
+          echo '<hr class="section-break">';
+          echo '<h2 class="headline headline--medium">' . get_the_title() . ' is Available At These Campuses:</h2>';
+
+          echo '<ul class="min-list link-list">'; // Creats a ul for each item to live in.
+          // En loop för att skriva ut alla campuses som har en relation med ett program.
+          foreach ($relatedCampuses as $campus) {
+            ?> <li><a href="<?php echo get_the_permalink($campus); ?>"><?php echo get_the_title($campus) ?></a></li><?php
+          }
+        }
+
+        echo '</ul>';
         ?>
         </div>
         

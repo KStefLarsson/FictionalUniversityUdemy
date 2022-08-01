@@ -7,7 +7,19 @@ pageBanner(array(
 ?>
 
 <div class="container container--narrow page-section">
-  <div class="acf-map">
+  <?php
+  while(have_posts()) {
+        the_post(); 
+        $mapLocation = get_field('map_location');
+        ?>
+        <div class="marker" >
+            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+            <?php echo $mapLocation['address']; ?>
+        </div>
+  <?php } 
+  ?>
+  <!-- Jag har inte knappat in mina kortuppgifter till google map funktionen så jag får inte upp någon karta, gör länkar till campuses istället. -->
+  <div class="acf-map">  
     <?php 
     while(have_posts()) {
         the_post(); 
@@ -17,9 +29,7 @@ pageBanner(array(
             <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
             <?php echo $mapLocation['address']; ?>
         </div>
-    <?php }
-        echo paginate_links();  
-    ?>
+    <?php } ?>
   </div>
 </div>
 

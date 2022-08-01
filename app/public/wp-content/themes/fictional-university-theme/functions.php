@@ -62,6 +62,11 @@
     add_action('after_setup_theme', 'university_features');  // Anropar funktionen university_features
 
     function university_adjust_queries($query) {
+         // En query som hanterar campuses
+        if (!is_admin() AND is_post_type_archive('campus') AND is_main_query()) {
+            $query -> set('post_per_page', -1);
+        }
+
         // En query som hanterar programs
         if (!is_admin() AND is_post_type_archive('program') AND is_main_query()) {
             $query -> set('orderby', 'title');
