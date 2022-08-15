@@ -41,6 +41,11 @@
         wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); //Laddar in social-media ikoner
         wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));  // Laddar in style.css stylesheet
         wp_enqueue_style('university_extra_styles', get_theme_file_uri('/build/index.css')); // Laddar in index.css
+
+        // Gör apiet i search.js dynamiskt så den inte bara fungerar på min lokala dator. 
+        wp_localize_script('main-university-js', 'universityData', array(
+            'root_url' => get_site_url()
+        ));
     }
 
     add_action('wp_enqueue_scripts', 'university_files');  // Kallar på funktionen university_files som laddar in alla javascript och .css filer
