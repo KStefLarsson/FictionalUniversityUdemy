@@ -18,12 +18,12 @@
             <i class="site-header__menu-trigger fa fa-bars" aria-hidden="true"></i>
             <div class="site-header__menu group">
             <nav class="main-navigation">
-<!--                 
-                <?php
+                
+                <!-- <?php
                     wp_nav_menu(array(
                         'theme_location' => 'headerMenuLocation'
                     ));
-                ?> -->
+                ?>  -->
 
                 <ul>
                 <li <?php if (is_page('about-us') or wp_get_post_parent_id(0) == 12) echo 'class="current-menu-item"' ?>><a href="<?php echo site_url('/about-us'); ?>">About Us</a></li>

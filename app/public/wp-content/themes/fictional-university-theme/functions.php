@@ -1,4 +1,16 @@
 <?php
+
+    require get_theme_file_path('/inc/search-route.php');
+
+    // En funktion som adderar ett värde till json rest api:t för att kunna få fram t ex authors name till ett blogginlägg.
+    function university_custom_rest() {
+        register_rest_field('post', 'authorName', array(
+            'get_callback' => function() {return get_the_author();}
+        ));
+    }
+
+    add_action('rest_api_init', 'university_custom_rest');
+
     // A function for making a page banner, so we don´t need to write this code on every page.
     // We just need to call the pageBanner function.
     function pageBanner ($args = NULL) {
