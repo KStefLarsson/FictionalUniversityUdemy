@@ -14,7 +14,7 @@
                 aria-hidden="true"></i>All Programs</a><span class="metabox__main"><?php the_title(); ?></span></p>
             </div>
 
-            <div class="generic-content"><?php the_content(); ?></div>
+            <div class="generic-content"><?php the_field('main_body_content'); ?></div>
             <?php  
             // -------  Tar fram Professorer --------------    
               $relatedProfessors = new WP_Query(array(
@@ -47,7 +47,8 @@
                   <a class="professor-card" href="<?php the_permalink(); ?>">
                     <img class="professor-card__image" src="<?php the_post_thumbnail_url('professorLandscape'); ?>">
                     <span class="professor-card__name"><?php the_title(); ?></span>
-                </a></li>
+                </a>
+              </li>
                 <?php }
                 echo '</ul>';
               }
