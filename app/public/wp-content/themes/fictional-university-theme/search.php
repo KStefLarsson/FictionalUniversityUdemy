@@ -9,6 +9,8 @@ pageBanner(array(
 <div class="container container--narrow page-section">
   <?php 
 
+get_search_form();
+
 if (have_posts()) {
   while(have_posts()) {
     the_post(); 
@@ -18,8 +20,6 @@ if (have_posts()) {
 } else  {
   echo '<h2 class="headline headline--small-plus">No results match that search.</h2>';
 }
-
-  get_search_form();
 
   ?>
 </div>
