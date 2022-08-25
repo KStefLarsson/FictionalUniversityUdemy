@@ -7,6 +7,10 @@
         register_rest_field('post', 'authorName', array(
             'get_callback' => function() {return get_the_author();}
         ));
+        
+        register_rest_field('note', 'userNoteCount', array(
+            'get_callback' => function() {return count_user_posts(get_current_user_id(), 'note');}
+        ));
     }
 
     add_action('rest_api_init', 'university_custom_rest');
@@ -56,7 +60,8 @@
 
         // Gör apiet i search.js dynamiskt så den inte bara fungerar på min lokala dator. 
         wp_localize_script('main-university-js', 'universityData', array(
-            'root_url' => get_site_url()
+            'root_url' => get_site_url(), 
+            'nonce' => wp_create_nonce('wp_rest')
         ));
     }
 
@@ -118,6 +123,75 @@
     }
 
     add_filter('acf/fields/google_map/api', 'universityMapKey');
+
+    // Omdirigera användare från admin dashbar och in till frontend homepage.
+    add_action('admin_init', 'redirectSubsToFrontend');
+
+    function redirectSubsToFrontend() {
+        $ourCurrentUser = wp_get_current_user();
+        // Om en användare endast har en roll och det är subscriber blir man omdiregerad till förstasidan.
+        if (count($ourCurrentUser -> roles) == 1 AND $ourCurrentUser -> roles[0] == 'subscriber') {
+            wp_redirect(site_url('/'));
+            exit;
+        }
+    }
+
+    // Tar bort wordpress admin menu navbar.
+    add_action('wp_loaded', 'noSubsAdminBar');
+
+    function noSubsAdminBar() {
+        $ourCurrentUser = wp_get_current_user();
+        // Om en användare endast har en roll och det är subscriber får man inte tillgång till wordpress navbar.
+        if (count($ourCurrentUser -> roles) == 1 AND $ourCurrentUser -> roles[0] == 'subscriber') {
+            show_admin_bar(false);
+        }
+    }
+
+    // Ändra på login sidan. Första argumentet är vad som ska ändras, det andra dem nya förändringarna.
+    // Här ändras url:n från wordpress.org till våran egna.
+    add_filter('login_headerurl', 'ourHeaderUrl');
+
+    function ourHeaderUrl() {
+        return esc_url(site_url('/'));
+    }
+    
+    add_action('login_enqueue_scripts', 'ourLoginCSS');
+
+    function ourLoginCSS() {
+        wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i'); //Laddar in google fonts
+        wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'); //Laddar in social-media ikoner
+        wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));  // Laddar in style.css stylesheet
+        wp_enqueue_style('university_extra_styles', get_theme_file_uri('/build/index.css')); // Laddar in index.css
+    }
+
+    add_filter('login_headertitle', 'ourLoginTitle');
+
+    function ourLoginTitle() {
+        return get_bloginfo('name');
+    }
+
+    // Filtrera inlägg som skrivs in av användare.
+    add_filter('wp_insert_post_data', 'makeNotePrivate', 10, 2);
+
+    function makeNotePrivate($data, $postarr) {
+      if ($data['post_type'] == 'note') {
+            // Sätter en begränsning på hur många post man kan skapa.
+            if(count_user_posts(get_current_user_id(), 'note') > 4 AND !$postarr['ID']) {
+                die("You have reached your note limit.");
+            }
+
+            // Sanerar det som användaren skriver in, filtrerar bort html och javascript.
+            $data['post_content'] = sanitize_textarea_field($data['post_content']);
+            $data['post_title'] = sanitize_text_field($data['post_title']);
+        }
+
+        // Force note posts to be private
+        if($data['post_type'] == 'note' AND $data['post_status'] != 'trash') {
+            $data['post_status'] = "private";
+        }
+        return $data;
+    }
+
 
 ?>
 

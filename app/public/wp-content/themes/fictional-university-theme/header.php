@@ -33,9 +33,21 @@
                 <li <?php if (get_post_type() == 'post') echo 'class="current-menu-item"' ?>><a href="<?php echo esc_url(site_url('/blog')); ?>">Blog</a></li>
                 </ul>
             </nav>
+            <!-- När en användare loggar in ändras sign up till log out och login knappen döljs. -->
             <div class="site-header__util">
-                <a href="#" class="btn btn--small btn--orange float-left push-right">Login</a>
-                <a href="#" class="btn btn--small btn--dark-orange float-left">Sign Up</a>
+                <?php if (is_user_logged_in()) { ?>
+                    <a href="<?php echo esc_url(site_url('/my-notes')); ?>" class="btn btn--small btn--orange float-left push-right">My Notes</a>
+                    <a href="<?php echo wp_logout_url(); ?>" class="btn btn--small btn--dark-orange float-left btn--with-photo">
+                    <!-- Är man inloggad syns ens registrerade bild. -->
+                        <span class="site-header__avatar"><?php echo get_avatar(get_current_user_id(), 60); ?></span>
+                        <span class="btn__text">Log Out</span>
+                    </a>
+                <?php }else { ?>
+                    <!-- Är du inte inloggad syns knapparna login och signup. -->
+                    <a href="<?php echo wp_login_url(); ?>" class="btn btn--small btn--orange float-left push-right">Login</a>
+                    <a href="<?php echo wp_registration_url(); ?>" class="btn btn--small btn--dark-orange float-left">Sign Up</a>
+                <?php } ?>
+
                 <a href="<?php echo esc_url(site_url('/search')); ?>" class="search-trigger js-search-trigger"><i class="fa fa-search" aria-hidden="true"></i></a>
             </div>
             </div>
