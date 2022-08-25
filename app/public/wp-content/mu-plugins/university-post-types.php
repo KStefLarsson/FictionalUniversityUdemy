@@ -4,6 +4,8 @@
     function university_post_types() {
         register_post_type('event', array(
             'show_in_rest' => true,
+            'capability_type' => 'event',
+            'map_meta_cap' => true,
             'supports' => array(
                 'title',
                 'editor',
@@ -60,7 +62,7 @@
                 'name' => 'Professor',  // Byter namn från Posts som är default namnet till Professor.
                 'add_new_item' => 'Add New professor',  // Ändrar rubriken i wordpress dashboard från Add New Post till Add New Professor.
                 'edit_item' => 'Edit professor',  // Ändrar rubriken i wordpress dashboard från Edit Post till Edit Professor.
-                'all_items' => 'All Professor',  // Ändrar rubriken i wordpress dashboard menyn från Professors till All Professors.
+                'all_items' => 'All Professors',  // Ändrar rubriken i wordpress dashboard menyn från Professors till All Professors.
                 'singular_name' => 'professor'
             ),
             'menu_icon' => 'dashicons-welcome-learn-more'  // Ändrar ikonen till en egen unik som jag själv väljer genom att googla på wordpress dashicons.
@@ -70,6 +72,8 @@
 
         register_post_type('campus', array(
             'show_in_rest' => true,
+            'capability_type' => 'campus',
+            'map_meta_cap' => true,
             'supports' => array(
                 'title',
                 'editor',
@@ -88,7 +92,48 @@
             ),
             'menu_icon' => 'dashicons-location-alt'  // Ändrar ikonen till en egen unik som jag själv väljer genom att googla på wordpress dashicons.
         ));
+
+
+        // Note Post Type
+        register_post_type('note', array(
+            'capability_type' => 'note',
+            'map_meta_cap' => true
+,            'show_in_rest' => true,
+            'supports' => array(
+                'title',
+                'editor' 
+            ),
+            'public' => false,       // Detta gör den osynlig för obehöriga.
+            'show_ui' => true,       // Detta gör den synlig i admin dashboard.
+            'labels' => array(
+                'name' => 'Notes',  // Byter namn från Posts som är default namnet till note.
+                'add_new_item' => 'Add New Note',  // Ändrar rubriken i wordpress dashboard från Add New Post till Add New note.
+                'edit_item' => 'Edit Note',  // Ändrar rubriken i wordpress dashboard från Edit Post till Edit note.
+                'all_items' => 'All Notes',  // Ändrar rubriken i wordpress dashboard menyn från notes till All notes.
+                'singular_name' => 'Note'
+            ),
+            'menu_icon' => 'dashicons-welcome-write-blog'  // Ändrar ikonen till en egen unik som jag själv väljer genom att googla på wordpress dashicons.
+        ));
+        
+
+         // Like Post Type
+         register_post_type('like', array(
+            'supports' => array(
+                'title'
+            ),
+            'public' => false,       // Detta gör den osynlig för obehöriga.
+            'show_ui' => true,       // Detta gör den synlig i admin dashboard.
+            'labels' => array(
+                'name' => 'Likes',  // Byter namn från Posts som är default namnet till Like.
+                'add_new_item' => 'Add New Like',  // Ändrar rubriken i wordpress dashboard från Add New Post till Add New Like.
+                'edit_item' => 'Edit Like',  // Ändrar rubriken i wordpress dashboard från Edit Post till Edit Like.
+                'all_items' => 'All Likes',  // Ändrar rubriken i wordpress dashboard menyn från Likes till All Likes.
+                'singular_name' => 'Like'
+            ),
+            'menu_icon' => 'dashicons-heart'  // Ändrar ikonen till en egen unik som jag själv väljer genom att googla på wordpress dashicons.
+        ));
     }
 
+    
     add_action('init', 'University_post_types');
 ?>
