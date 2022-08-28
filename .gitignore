@@ -14,7 +14,7 @@ app/public/wp-config-sample.php
 
 app/public/wp-content/uploads/
 *.txt
-app/public/wp-content/plugins/
+
 app/public/wp-content/themes/fictional-university-theme/node_modules/.bin/
 app/public/wp-content/themes/fictional-university-theme/node_modules/@babel/core/lib/
 app/public/wp-content/themes/fictional-university-theme/node_modules/
