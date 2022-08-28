@@ -1,5 +1,6 @@
 <?php
 
+    require get_theme_file_path('/inc/like-route.php');
     require get_theme_file_path('/inc/search-route.php');
 
     // En funktion som adderar ett värde till json rest api:t för att kunna få fram t ex authors name till ett blogginlägg.
