@@ -11,8 +11,7 @@ logs/php/error.log
 app/public/xmlrpc.php
 app/public/wp-config.php
 app/public/wp-config-sample.php
-app/public/wp-content/plugins/advanced-custom-fields/assets/
-app/public/wp-content/plugins/advanced-custom-fields/
+
 app/public/wp-content/uploads/
 *.txt
 app/public/wp-content/plugins/
