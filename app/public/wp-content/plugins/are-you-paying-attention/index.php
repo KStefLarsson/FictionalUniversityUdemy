@@ -18,9 +18,11 @@ class AreYouPayingAttention {
     }
 
     function adminAssets() {
-        wp_register_script('ournewblocktype', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-blocks', "wp-element"));
+        wp_register_style('quizeditcss', plugin_dir_url(__FILE__) . 'build/index.css'); // Laddar css-fil
+        wp_register_script('ournewblocktype', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-blocks', "wp-element", 'wp-editor')); // Laddar våran javascript-fil.
         register_block_type('ourplugin/are-you-paying-attention', array(
             'editor_script' => 'ournewblocktype', 
+            'editor_style' => 'quizeditcss',
             'render_callback' => array($this, 'theHTML')
         ));
     }

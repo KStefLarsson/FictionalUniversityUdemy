@@ -2,6 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
 /***/ "@wordpress/element":
 /*!*********************************!*\
   !*** external ["wp","element"] ***!
@@ -89,6 +99,9 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+
 
 wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
   title: "Are You Paying Attention",
@@ -102,35 +115,34 @@ wp.blocks.registerBlockType("ourplugin/are-you-paying-attention", {
       type: "string"
     }
   },
-  edit: function (props) {
-    function updateSkyColor(event) {
-      props.setAttributes({
-        skyColor: event.target.value
-      });
-    }
-
-    function updateGrassColor(event) {
-      props.setAttributes({
-        grassColor: event.target.value
-      });
-    }
-
-    return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      type: "text",
-      placeholder: "sky color",
-      value: props.attributes.skyColor,
-      onChange: updateSkyColor
-    }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-      type: "text",
-      placeholder: "grass color",
-      value: props.attributes.grassColor,
-      onChange: updateGrassColor
-    }));
-  },
+  edit: EditComponent,
   save: function (props) {
     return null;
   }
 });
+
+function EditComponent(props) {
+  function updateSkyColor(event) {
+    props.setAttributes({
+      skyColor: event.target.value
+    });
+  }
+
+  function updateGrassColor(event) {
+    props.setAttributes({
+      grassColor: event.target.value
+    });
+  } // Vi returnerar värdena med hjälp av JSX
+
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, {
+    label: "Question:"
+  }), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "",
+    name: "",
+    value: ""
+  }));
+}
 })();
 
 /******/ })()
